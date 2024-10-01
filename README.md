@@ -105,7 +105,7 @@ pdal pipeline pipeline.json
 
 Once we have  `usgs-breakline-eval.copc.laz` that is output by the pipeline, we can plot some simple histogram to compare the given water level of the breakline with the Z values of the points themselves.
 
-    <img src="./pictures/Classification-20.png"  />
+<img src="./pictures/Classification-20.png"  />
 
 <details>
 
