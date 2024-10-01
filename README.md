@@ -105,6 +105,8 @@ pdal pipeline pipeline.json
 
 Once we have  `usgs-breakline-eval.copc.laz` that is output by the pipeline, we can plot some simple histogram to compare the given water level of the breakline with the Z values of the points themselves.
 
+The following histogram shows the `ignored ground (20)` points that are closest to the breakline. The script could be adapted to select for different classifications, or more interestingly, dilate or erode the distance to/from the breakline using the `distance` dimension that was added to the points by `filters.geomdistance`.
+
 <img src="./pictures/Classification-20.png"  />
 
 <details>
