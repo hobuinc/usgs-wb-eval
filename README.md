@@ -29,13 +29,11 @@ concepts:
 
 ## Example
 
-<figure>
-  <a href="https://viewer.copc.io?state=7dfe03e2f18ddf44b3a6dcfac384d963d6492a3d58ffc0b71a03daa5c1d25502">
-    <img src="./pictures/example-tile.png" alt="Example 3DEP COPC tile"/>
-  </a>
-  <figcaption>I chose USGS_LPC_WI_Statewide_2019_A19_0344 in WI_Adams_2019 which has a few closed-form waterbodies in it. The example waterbody that was chosen was the one on the middle left of the tile.</figcaption>
-</figure>
+<a href="https://viewer.copc.io?state=7dfe03e2f18ddf44b3a6dcfac384d963d6492a3d58ffc0b71a03daa5c1d25502">
+<img src="./pictures/example-tile.png" alt="Example 3DEP COPC tile"/>
+</a>
 
+I chose `USGS_LPC_WI_Statewide_2019_A19_0344` in `WI_Adams_2019` which has a few closed-form waterbodies in it. The example waterbody that was chosen was the one on the middle left of the tile.</figcaption>
 
 Looking at the classification values of the data (click the image for a live preview), it contains the following classification in the near-shore:
 
@@ -47,7 +45,9 @@ Looking at the classification values of the data (click the image for a live pre
 * ignored ground (20)
 
 
-<a href="https://viewer.copc.io?state=02e460d164c36e0a2291ee642576728a2ae958aa0e33bb5731790ab355d8cce4"><img src="./pictures/near-shore-classification.png" width="50%" /></a>
+<a href="https://viewer.copc.io?state=02e460d164c36e0a2291ee642576728a2ae958aa0e33bb5731790ab355d8cce4">
+    <img src="./pictures/near-shore-classification.png" width="50%" />
+</a>
 
 ## Breakline Buffering
 
@@ -62,19 +62,37 @@ PDAL. We need to do a couple of things:
   value set to 1
 * Union the breakline to a closed-form polygon.
 
-
 <img src="./pictures/buffered-wb.png" width="50%" />
 
-## Breakline Buffering
+<details>
+### Usage
+
+```
+./snake.sh waterbody.geojson 20
+```
+
+The script currently assumes the data are in `EPSG:7587` due to the `WI_Adams_2019` project. This
+will need to be adjusted if it matters to you.
+</details>
 
 
+## Pipeline
 
-The reason for having those distances is so we can dilate or erode
+The pipeline at [`pipeline.json`](./pipeline.json) provides a full workflow for extracting the buffered
+points around a breakline.
 
-### PDAL Pipeline
+<a href="https://viewer.copc.io?state=e029066ddb92005eb0fd79c57e5df795534589ff2386e512eac316746353d69b">
+    <img src="./pictures/near-shore-classification.png" width="50%" />
+</a>
 
-The following pipeline extracts
 
+<details>
+### Usage
 
+```
+pdal pipeline pipeline.json
+```
+
+</details>
 
 

@@ -10,7 +10,7 @@
         "filename":"USGS_LPC_WI_Statewide_2019_A19_0344.copc.laz",
         "ogr": {
             "datasource": "waterbody.geojson",
-            "sql": "SELECT ST_buffer(geometry, 100) from waterbody a where rowid=0",
+            "sql": "SELECT ST_buffer(ST_Transform(geometry, 7587), 100) from waterbody a where rowid=0",
             "options": {
                 "dialect": "SQLITE"
             }
