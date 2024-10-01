@@ -1,0 +1,97 @@
+[
+    {
+        // Use OGR to select the 1st geometry from our
+        // waterbody.geojson file. We buffer it by 100
+        // units to make sure we get all the points. This
+        // isn't necessary, but shows how to use the `ogr`
+        // option to use OGR SQLite SQL to control our
+        // interaction with the geometry
+        "type": "readers.copc",
+        "filename":"USGS_LPC_WI_Statewide_2019_A19_0344.copc.laz",
+        "ogr": {
+            "datasource": "waterbody.geojson",
+            "sql": "SELECT ST_buffer(geometry, 100) from waterbody a where rowid=0",
+            "options": {
+                "dialect": "SQLITE"
+            }
+        }
+    },
+    {
+        // filters.ferry is used to copy data from one
+        // dimension to another We're using it here to
+        // capture the bit flag of Withheld and use that
+        // to tell us whether or not the points we have
+        // selected are inside the buffer
+        "type": "filters.ferry",
+        "dimensions":"Withheld => InBuffer"
+    },
+    {
+        // We need to make sure to wipe off any data and
+        // zero it out. When we did the ferry above, we
+        // would have some points that are 1 because they
+        // might actually have been withheld
+        "type": "filters.assign",
+        "value":["InBuffer = 0", "UserData = 0"]
+    },
+    {
+        // filters.overlay will burn in the value of the
+        // InBuffer column in buffered.shp into the InBuffer
+        // dimension that we created using filters.ferry.
+        // Because this operation is quite expensive, we
+        // want to make sure that we only put in a limited
+        // number of points. We pre-filter that with the
+        // readers.copc.ogr filter above
+        "type": "filters.overlay",
+        "dimension":"InBuffer",
+        "datasource":"./buffered.shp",
+        "column":"InBuffer",
+        "layer":"buffered"
+    },
+    {
+        // filters.geomdistance computes the 2d
+        // point-to-segment distance between a geometry and
+        // a candidate point. We use the `where` option to
+        // limit doing this computation for ONLY the points
+        // that are InBuffer == 1, which was set by
+        // filters.overlay. The candidate geometry for the
+        // operation is provided by the `ogr` option, and
+        // we also set `ring` to true to compute distances
+        // for points *inside* the polygon as well. Finally,
+        // `where_merge` says to pass on all of the points
+        // that didn't satisfy InBuffer == 1 to the next stage.
+        "type": "filters.geomdistance",
+        "where":"InBuffer == 1",
+        "where_merge":"true",
+        "ogr": {
+            "datasource": "./union.shp"
+            },
+        "ring":"true"
+    },
+    {
+        // This filters.assign encodes the `distance`
+        // dimension that was written by filters.geomdistance
+        // into the `UserData` dimension. We do this to make
+        // it compress better than a float64 extra byte
+        // dimension would, but the consequence is that it
+        // gets discretized to 254 bins instead of a
+        // continuous floating dimension
+        "type": "filters.assign",
+        "value":"UserData = ((distance + 20)/40) * 254"
+    },
+    {
+        // Rip off any points that we don't want to pass
+        // on to our output. This could also be provided
+        // in combination with the `where` option of writers.copc
+        "type": "filters.expression",
+        "expression": "!(Withheld == 1 || Synthetic == 1 || Overlap == 1)"
+    },
+    {
+        // Make sure to write all of our `extra_dims` so
+        // we get `distance` and `InBuffer`
+        "type": "writers.copc",
+        "extra_dims": "all",
+        "where":"InBuffer == 1",
+        "filename": "foo.copc.laz"
+    }
+]
+

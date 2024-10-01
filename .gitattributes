@@ -1,0 +1,2 @@
+USGS_LPC_WI_Statewide_2019_A19_0344.copc.laz filter=lfs diff=lfs merge=lfs -text
+usgs-breakline-eval.copc.laz filter=lfs diff=lfs merge=lfs -text
