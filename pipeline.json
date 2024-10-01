@@ -63,7 +63,7 @@
         "where":"InBuffer == 1",
         "where_merge":"true",
         "ogr": {
-            "datasource": "./union.shp"
+            "datasource": "./polygon.shp"
             },
         "ring":"true"
     },

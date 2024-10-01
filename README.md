@@ -12,7 +12,7 @@ are hopefully useful in the context of NGTOC building a process to automate the
 extraction of waterbody point cloud metrics that could short-circuit a
 significant portion of the manual inspection process.
 
-### Simple algorithm description
+## Simple algorithm description
 
 The approach uses a couple of different ideas, but they're pretty basic GIS
 concepts:
@@ -45,8 +45,20 @@ Looking at the classification values of the data (click the image for a live pre
 [![USGS_LPC_WI_Statewide_2019_A19_0344](./pictures/near-shore-classification.png 'Near shore classification'){ width=75% }](https://viewer.copc.io?state=02e460d164c36e0a2291ee642576728a2ae958aa0e33bb5731790ab355d8cce4)
 
 
-### Classification 20m buffered points
+## Breakline Buffering
 
+[GDAL](https://gdal.org) provides sophisticated utilities for manipulating vector geometry
+on the command line. Two key features are [VRT](https://gdal.org/en/latest/drivers/vector/vrt.html) and the
+GDAL [SQL dialects](https://gdal.org/en/latest/user/ogr_sql_dialect.html).
+
+[`snake.sh`](./snake.sh) is used to prepare our waterbody geometry for interaction with
+PDAL. We need to do a couple of things:
+
+* Buffer the breakline to 20m and add an attribute called ``InBuffer`` with its
+  value set to 1
+* Union the breakline to a closed-form polygon.
+
+[USGS_LPC_WI_Statewide_2019_A19_0344](./pictures/buffered-wb.png 'Buffered breakline'){ width=75% }
 
 The reason for having those distances is so we can dilate or erode
 
