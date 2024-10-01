@@ -7,10 +7,7 @@ against point cloud data. This process has currently been a combination of
 manual inspection via visualization and can be quite time consuming. The
 intent of this article is to demonstrate how PDAL can be used to generate
 statistics that could be used for verification of breakline geometry levels
-in relation to the point clouds in the near-shore boundary. These ideas
-are hopefully useful in the context of NGTOC building a process to automate the
-extraction of waterbody point cloud metrics that could short-circuit a
-significant portion of the manual inspection process.
+in relation to the point clouds in the near-shore boundary. 
 
 ## Simple algorithm description
 
