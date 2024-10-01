@@ -65,6 +65,7 @@ PDAL. We need to do a couple of things:
 <img src="./pictures/buffered-wb.png" width="50%" />
 
 <details>
+
 ### Usage
 
 ```
@@ -79,7 +80,10 @@ will need to be adjusted if it matters to you.
 ## Pipeline
 
 The pipeline at [`pipeline.json`](./pipeline.json) provides a full workflow for extracting the buffered
-points around a breakline.
+points around a breakline. Be sure to review it for detailed comments on how each filter works.
+
+Once we have the data, we can extract some statistics from it and plot some pictures
+with matplotlib.
 
 <a href="https://viewer.copc.io?state=e029066ddb92005eb0fd79c57e5df795534589ff2386e512eac316746353d69b">
     <img src="./pictures/near-shore-classification.png" width="50%" />
@@ -87,6 +91,7 @@ points around a breakline.
 
 
 <details>
+
 ### Usage
 
 ```
@@ -96,3 +101,24 @@ pdal pipeline pipeline.json
 </details>
 
 
+## Matplotlib
+
+Once we have  `usgs-breakline-eval.copc.laz` that is output by the pipeline, we can plot some simple histogram to compare the given water level of the breakline with the Z values of the points themselves.
+
+    <img src="./pictures/Classification-20.png"  />
+</a>
+
+<details>
+
+### Example Usage
+
+
+```
+histogram.py FILENAME CLASSIFICATION_BREAK WATER_LEVEL
+```
+
+```
+python histogram.py usgs-breakline-eval.copc.laz 20 948.305
+```
+
+</details>

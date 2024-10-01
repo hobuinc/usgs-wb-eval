@@ -91,7 +91,7 @@
         "type": "writers.copc",
         "extra_dims": "all",
         "where":"InBuffer == 1",
-        "filename": "foo.copc.laz"
+        "filename": "usgs-breakline-eval.copc.laz"
     }
 ]
 
