@@ -29,9 +29,13 @@ concepts:
 
 ## Example
 
-I chose ``USGS_LPC_WI_Statewide_2019_A19_0344`` in `WI_Adams_2019` which has a few closed-form waterbodies in it. The example waterbody that was chosen was the one on the middle left of the tile.
+<figure>
+  <a href="https://viewer.copc.io?state=7dfe03e2f18ddf44b3a6dcfac384d963d6492a3d58ffc0b71a03daa5c1d25502">
+    <img src="./pictures/example-tile.png" alt="Example 3DEP COPC tile"/>
+  </a>
+  <figcaption>I chose USGS_LPC_WI_Statewide_2019_A19_0344 in WI_Adams_2019 which has a few closed-form waterbodies in it. The example waterbody that was chosen was the one on the middle left of the tile.</figcaption>
+</figure>
 
-<a href="https://viewer.copc.io?state=7dfe03e2f18ddf44b3a6dcfac384d963d6492a3d58ffc0b71a03daa5c1d25502"><img src="./pictures/example-tile.png" width="50%" /></a>
 
 Looking at the classification values of the data (click the image for a live preview), it contains the following classification in the near-shore:
 
@@ -42,11 +46,6 @@ Looking at the classification values of the data (click the image for a live pre
 * water (9)
 * ignored ground (20)
 
-
-<figure>
-  <img src="./pictures/example-tile.png" alt="Example 3DEP COPC tile"/>
-  <figcaption>I chose <pre>USGS_LPC_WI_Statewide_2019_A19_0344</pre> in <pre>WI_Adams_2019</pre> which has a few closed-form waterbodies in it. The example waterbody that was chosen was the one on the middle left of the tile.</figcaption>
-</figure>
 
 <a href="https://viewer.copc.io?state=02e460d164c36e0a2291ee642576728a2ae958aa0e33bb5731790ab355d8cce4"><img src="./pictures/near-shore-classification.png" width="50%" /></a>
 
